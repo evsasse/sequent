@@ -7,7 +7,7 @@ require_relative 'sequent_oj'
 module Sequent
   module Core
     class EventStore
-      include ActiveRecord::ConnectionAdapters::Quoting
+      include ActiveRecord::ConnectionAdapters::PostgreSQL::Quoting
       extend Forwardable
 
       class OptimisticLockingError < RuntimeError
