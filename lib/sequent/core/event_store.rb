@@ -7,10 +7,11 @@ require_relative 'sequent_oj'
 module Sequent
   module Core
     class EventStore
-      if defined?(ActiveRecord::ConnectionAdapters::PostgreSQL::Quoting::ClassMethods)
-        include ActiveRecord::ConnectionAdapters::PostgreSQL::Quoting::ClassMethods
-      else
+      if Gem.loaded_specs['activerecord'].version < Gem::Version.create('7.2.0')
         include ActiveRecord::ConnectionAdapters::Quoting
+      else
+        require 'active_record/connection_adapters/postgresql_adapter'
+        include ActiveRecord::ConnectionAdapters::PostgreSQL::Quoting::ClassMethods
       end
 
       extend Forwardable
