@@ -60,9 +60,11 @@ module Sequent
           ActiveRecord::Base.connects_to database: {
             Sequent.configuration.primary_database_role => Sequent.configuration.primary_database_key,
           }
+          ActiveRecord::Base.connection.connect!
         else
           db_config = db_config.merge(db_config_overrides)
           ActiveRecord::Base.establish_connection(db_config)
+          ActiveRecord::Base.connection.connect!
         end
       end
 
